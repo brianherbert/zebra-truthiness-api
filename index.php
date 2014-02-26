@@ -27,6 +27,7 @@
 		$lies = $lies->find_many();
 		$data = array();
 
+		// XML XML XML XML XML XML XML XML XML XML XML XML XML XML XML XML XML XML XML XML
 		if ($app->request->get('format') == 'xml') {
 
 			$app->response->headers->set('Content-Type', 'application/xml');
@@ -37,6 +38,19 @@
 			$xml = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><articles></articles>");
 			array_to_xml($data,$xml);
 			echo $xml->asXML();
+
+		// CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV
+		}elseif ($app->request->get('format') == 'csv') {
+
+			$app->response->headers->set('Content-Type', 'application/csv');
+
+			foreach($lies AS $lie) {
+				$data[] = $lie->as_array();
+			}
+
+			var_dump(array_to_csv($data));
+
+		// JSON JSON JSON JSON JSON JSON JSON JSON JSON JSON JSON JSON JSON JSON JSON JSON
 		}else{
 
 			foreach($lies AS $lie) {
@@ -84,6 +98,24 @@
 		echo json_encode($response);
 
 	});
+
+	function array_to_csv($array) {
+
+		$fp = fopen('php://output', 'w');
+
+		foreach ($array AS $row) {
+			fputcsv($fp, array_keys($row));
+			break;
+		}
+
+		foreach ($array AS $row) {
+			fputcsv($fp, $row);
+		}
+
+		fclose($fp);
+
+		return $fp;
+	}
 
 	// function defination to convert array to xml
 	function array_to_xml($student_info, &$xml_student_info) {
