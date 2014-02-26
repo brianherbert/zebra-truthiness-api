@@ -1,0 +1,7 @@
+web1:
+  php_extensions:
+    - pdo_mysql
+    - mbstring
+db1:
+  name: zebra-api-db1
+  type: mysql

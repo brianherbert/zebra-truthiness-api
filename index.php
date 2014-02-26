@@ -5,9 +5,15 @@
 	require 'Slim/Slim.php';
 	require 'libraries/idiorm.php';
 
+	/*
 	ORM::configure('mysql:host=127.0.0.1;dbname=zebra');
 	ORM::configure('username', 'root');
 	ORM::configure('password', '');
+	*/
+
+	ORM::configure('mysql:host='.$_SERVER["DB1_HOST"].';dbname='.$_SERVER["DB1_NAME"]);
+	ORM::configure('username', $_SERVER["DB1_USER"]);
+	ORM::configure('password', $_SERVER["DB1_PASS"]);
 
 	\Slim\Slim::registerAutoloader();
 
