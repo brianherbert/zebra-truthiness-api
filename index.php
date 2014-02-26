@@ -21,19 +21,34 @@
 
 	$app->response->headers->set('Content-Type', 'application/json');
 
-	$app->get('/v1/article(/:md5_url)/', function ($md5_url=false) {
+	$app->get('/v1/article(/:md5_url)/', function ($md5_url=false) use ($app) {
 		$lies = ORM::for_table('lies');
 		if ($md5_url) $lies->where_equal('hash', $md5_url);
 		$lies = $lies->find_many();
 		$data = array();
-		foreach($lies AS $lie) {
-			$data[] = $lie->as_array();
-		}
 
-		$response['data']   = $data;
-		$response['error']  = false;
-		$response['status'] = 200;
-		echo json_encode($response);
+		if ($app->request->get('format') == 'xml') {
+
+			$app->response->headers->set('Content-Type', 'application/xml');
+
+			foreach($lies AS $lie) {
+				$data[] = $lie->as_array();
+			}
+			$xml = new SimpleXMLElement("<?xml version=\"1.0\"?><articles></articles>");
+			array_to_xml($data,$xml);
+			echo $xml->asXML();
+		}else{
+
+			foreach($lies AS $lie) {
+				$data[] = $lie->as_array();
+			}
+
+			$response['data']   = $data;
+			$response['error']  = false;
+			$response['status'] = 200;
+
+			echo json_encode($response);
+		}
 	});
 
 	$app->post('/v1/article/', function () use ($app) {
@@ -69,6 +84,19 @@
 		echo json_encode($response);
 
 	});
+
+	// function defination to convert array to xml
+	function array_to_xml($student_info, &$xml_student_info) {
+		foreach($student_info as $key => $value) {
+			if(is_array($value)) {
+				$subnode = $xml_student_info->addChild("item");
+				array_to_xml($value, $subnode);
+			}
+			else {
+				$xml_student_info->addChild("$key","$value");
+			}
+		}
+	}
 
 
 
