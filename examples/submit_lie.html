@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Example Lie Submission POST</title>
+</head>
+
+<body>
+
+	<form method="POST" action="/v1/article/">
+		URL:
+		<input type="text" name="url" placeholder="http://antelope.org/lying/website/" />
+		<br/>
+		Title:
+		<input type="text" name="title" placeholder="WhatsApp Sold" />
+		<br/>
+		String of lies:
+		<input type="text" name="lie" placeholder="WhatsApp sold to Google for $100 billion." />
+		<br/>
+		Context:
+		<input type="text" name="context" placeholder="XXXXX WhatsApp sold to Google for $100 billion. XXXXX" />
+		<br/>
+		Source URL:
+		<input type="text" name="source" placeholder="http://something.com/the/truth/" />
+		<br/>
+		<input type="submit" value="Submit" />
+	</form>
+
+</body>
+</html>
