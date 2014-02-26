@@ -48,7 +48,7 @@
 				$data[] = $lie->as_array();
 			}
 
-			var_dump(array_to_csv($data));
+			echo array_to_csv($data);
 
 		// JSON JSON JSON JSON JSON JSON JSON JSON JSON JSON JSON JSON JSON JSON JSON JSON
 		}else{
