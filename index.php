@@ -1,6 +1,6 @@
 <?php
 
-	//mb_internal_encoding("UTF-8");
+	mb_internal_encoding("UTF-8");
 
 	require 'Slim/Slim.php';
 	require 'libraries/idiorm.php';
@@ -34,7 +34,7 @@
 			foreach($lies AS $lie) {
 				$data[] = $lie->as_array();
 			}
-			$xml = new SimpleXMLElement("<?xml version=\"1.0\"?><articles></articles>");
+			$xml = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><articles></articles>");
 			array_to_xml($data,$xml);
 			echo $xml->asXML();
 		}else{
