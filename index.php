@@ -19,7 +19,7 @@
 
 	$app = new \Slim\Slim();
 
-	$app->response->headers->set('Content-Type', 'application/json');
+	$app->response->headers->set('Content-Type', 'application/json; charset=utf-8');
 
 	$app->get('/v1/article(/:md5_url)/', function ($md5_url=false) use ($app) {
 		$lies = ORM::for_table('lies');
@@ -30,7 +30,7 @@
 		// XML XML XML XML XML XML XML XML XML XML XML XML XML XML XML XML XML XML XML XML
 		if ($app->request->get('format') == 'xml') {
 
-			$app->response->headers->set('Content-Type', 'application/xml');
+			$app->response->headers->set('Content-Type', 'application/xml; charset=utf-8');
 
 			foreach($lies AS $lie) {
 				$data[] = $lie->as_array();
@@ -42,7 +42,7 @@
 		// CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV CSV
 		}elseif ($app->request->get('format') == 'csv') {
 
-			$app->response->headers->set('Content-Type', 'application/csv');
+			$app->response->headers->set('Content-Type', 'application/csv; charset=utf-8');
 
 			foreach($lies AS $lie) {
 				$data[] = $lie->as_array();
